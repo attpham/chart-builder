@@ -34,8 +34,17 @@ export default function ColorPicker({ data, onUpdateDatasetColor, onApplyPalette
                   type="text"
                   value={data.datasets[openIndex]?.backgroundColor || '#000000'}
                   onChange={e => {
-                    if (/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(e.target.value)) {
-                      onUpdateDatasetColor(openIndex, e.target.value);
+                    const val = e.target.value;
+                    if (/^#([0-9A-Fa-f]{0,6})$/.test(val)) {
+                      if (/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(val)) {
+                        onUpdateDatasetColor(openIndex, val);
+                      }
+                    }
+                  }}
+                  onBlur={e => {
+                    const val = e.target.value;
+                    if (!/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(val)) {
+                      onUpdateDatasetColor(openIndex, data.datasets[openIndex]?.backgroundColor || '#000000');
                     }
                   }}
                   className="flex-1 text-sm font-mono border border-gray-200 rounded px-2 py-1 focus:outline-none focus:border-blue-400"

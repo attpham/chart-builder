@@ -5,12 +5,12 @@ const fontFamilies = ['Open Sans', 'Arial', 'Roboto', 'Georgia', 'Times New Roma
 export default function TopToolbar({ options, onUpdateOptions }) {
   const update = (path, value) => {
     const keys = path.split('.');
-    const newOpts = { ...options };
+    const newOpts = structuredClone(options);
     let obj = newOpts;
     for (let i = 0; i < keys.length - 1; i++) {
       const k = keys[i];
       if (k === '__proto__' || k === 'constructor' || k === 'prototype') return;
-      obj[k] = { ...obj[k] };
+      if (obj[k] == null || typeof obj[k] !== 'object') obj[k] = {};
       obj = obj[k];
     }
     const lastKey = keys[keys.length - 1];
