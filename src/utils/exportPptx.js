@@ -29,7 +29,7 @@ export function exportToPptx(chartConfig) {
     showTitle: !!chartConfig.options.title.text,
     title: chartConfig.options.title.text,
     showLegend: chartConfig.options.legend.display,
-    legendPos: chartConfig.options.legend.position[0],
+    legendPos: (chartConfig.options.legend.position || 'top')[0],
     ...(chartConfig.chartType === 'donut' ? { holeSize: 50 } : {}),
     ...(chartConfig.chartType === 'stackedBar' ? { barGrouping: 'stacked' } : {}),
     ...(chartConfig.chartType === 'horizontalBar' ? { barDir: 'bar' } : { barDir: 'col' }),
