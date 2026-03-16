@@ -40,10 +40,15 @@ export default function ChartStyleControls({ chartType, options, onUpdateOptions
     const newOpts = { ...options };
     let obj = newOpts;
     for (let i = 0; i < keys.length - 1; i++) {
-      obj[keys[i]] = { ...obj[keys[i]] };
-      obj = obj[keys[i]];
+      const k = keys[i];
+      if (k === '__proto__' || k === 'constructor' || k === 'prototype') return;
+      obj[k] = { ...obj[k] };
+      obj = obj[k];
     }
-    obj[keys[keys.length - 1]] = value;
+    const lastKey = keys[keys.length - 1];
+    if (lastKey !== '__proto__' && lastKey !== 'constructor' && lastKey !== 'prototype') {
+      obj[lastKey] = value;
+    }
     onUpdateOptions(newOpts);
   };
 

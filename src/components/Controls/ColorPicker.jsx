@@ -34,7 +34,7 @@ export default function ColorPicker({ data, onUpdateDatasetColor, onApplyPalette
                   type="text"
                   value={data.datasets[openIndex]?.backgroundColor || '#000000'}
                   onChange={e => {
-                    if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+                    if (/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(e.target.value)) {
                       onUpdateDatasetColor(openIndex, e.target.value);
                     }
                   }}

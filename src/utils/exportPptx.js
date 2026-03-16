@@ -22,7 +22,10 @@ export function exportToPptx(chartConfig) {
 
   const opts = {
     x: 0.5, y: 0.5, w: 9, h: 6,
-    chartColors: chartConfig.data.datasets.map(ds => ds.backgroundColor.replace('#', '')),
+    chartColors: chartConfig.data.datasets.map(ds => {
+      const color = String(ds.backgroundColor || '#4BC0C0');
+      return color.startsWith('#') ? color.replace('#', '') : '4BC0C0';
+    }),
     showTitle: !!chartConfig.options.title.text,
     title: chartConfig.options.title.text,
     showLegend: chartConfig.options.legend.display,
